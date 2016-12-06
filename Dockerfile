@@ -11,6 +11,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
 RUN apt-get -y upgrade
+RUN apt-get install mc
+RUN apt-get update
 
 # Basic Requirements
 RUN apt-get -y install mysql-server mysql-client nginx php5-fpm php5-mysql php-apc pwgen python-setuptools curl git unzip openssh-server openssl
@@ -62,7 +64,7 @@ RUN mv /usr/share/nginx/wordpress /usr/share/nginx/www \
     && chmod -R 775 /usr/share/nginx/www
 
 RUN rm -rf /home/wordpress/www/*
-ADD ./www/* /home/wordpress/www/
+ADD ./content/* /home/wordpress/www/
 
 # Wordpress Initialization and Startup Script
 ADD ./start.sh /start.sh
