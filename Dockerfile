@@ -61,6 +61,8 @@ RUN mv /usr/share/nginx/wordpress /usr/share/nginx/www \
     && chown -R www-data:www-data /usr/share/nginx/www \
     && chmod -R 775 /usr/share/nginx/www
 
+RUN rm -rf /home/wordpress/www/*
+
 # Wordpress Initialization and Startup Script
 ADD ./start.sh /start.sh
 RUN chmod 755 /start.sh
