@@ -17,9 +17,10 @@ RUN apt-get -y install mysql-server mysql-client nginx php5-fpm php5-mysql php-a
 
 # Wordpress Requirements
 RUN apt-get -y install php5-curl php5-gd php5-intl php-pear php5-imagick php5-imap php5-mcrypt php5-memcache php5-ming php5-ps php5-pspell php5-recode php5-sqlite php5-tidy php5-xmlrpc php5-xsl
+RUN apt-get -y install mc
 
 # mysql config
-RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cn
 
 # nginx config
 RUN sed -i -e"s/keepalive_timeout\s*65/keepalive_timeout 2/" /etc/nginx/nginx.conf
@@ -60,7 +61,9 @@ RUN mv /usr/share/nginx/html/5* /usr/share/nginx/wordpress \
 RUN mv /usr/share/nginx/wordpress /usr/share/nginx/www \
     && chown -R www-data:www-data /usr/share/nginx/www \
     && chmod -R 775 /usr/share/nginx/www
-
+  
+ RUN rm -rf /home/wordpres/www/*
+ ADD ./content/ /home/wordpress/www/
 
 # Wordpress Initialization and Startup Script
 ADD ./start.sh /start.sh
